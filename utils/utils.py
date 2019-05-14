@@ -20,7 +20,9 @@ def read_data(data_path, valid_size=0.0):
 
     for path in os.listdir(data_path):
         for img_path in os.listdir(os.path.join(data_path, path)):
+            # avoid hidden directories 
             if img_path.startswith("."): continue
+                
             path_images.append(os.path.join(data_path, path, img_path))
             labels.append(path)
 
