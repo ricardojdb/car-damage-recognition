@@ -7,6 +7,9 @@ import os
 
 def load_image(path):
     x = cv2.imread(path)
+    if x is None:
+        print(path)
+        print(x)
     x = cv2.cvtColor(x, cv2.COLOR_BGR2RGB)
     x = cv2.resize(x, (224,224)).astype(np.float32)
     return x
@@ -17,9 +20,10 @@ def read_data(data_path, valid_size=0.0):
 
     for path in os.listdir(data_path):
         for img_path in os.listdir(os.path.join(data_path, path)):
+            if img_path.startswith("."): continue
             path_images.append(os.path.join(data_path, path, img_path))
             labels.append(path)
-    
+
     images = np.array([load_image(impath) for impath in path_images])
     labels = np.array(labels)
 
